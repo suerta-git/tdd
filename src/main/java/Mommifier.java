@@ -6,6 +6,6 @@ public class Mommifier {
         if (string.isEmpty()) {
             throw new IllegalArgumentException("Input should not be empty string");
         }
-        return null;
+        return string;
     }
 }
