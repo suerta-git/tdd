@@ -1,12 +1,10 @@
-import javax.lang.model.util.Types;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class Mommifier {
-    final private List<Character> vowels = new ArrayList<>(Arrays.asList(
+    private static final double PERCENT = 0.3;
+    private final List<Character> vowels = new ArrayList<>(Arrays.asList(
             'a', 'e', 'i', 'o', 'u',
             'A', 'E', 'I', 'O', 'U'
     ));
@@ -19,22 +17,29 @@ public class Mommifier {
             throw new IllegalArgumentException("Input should not be empty string");
         }
 
-        if (isVowelsMoreThan(string, 0.3) && string.length() > 1) {
-            StringBuilder result = new StringBuilder(string);
-            int previous = 0, index = 1;
-            while (index < result.length()) {
-                if (vowels.contains(result.charAt(previous)) && vowels.contains(result.charAt(index))) {
-                    result.insert(index, "mommy");
-                    previous += 5;
-                    index += 5;
-                    continue;
-                }
-                previous++;
-                index++;
-            }
-            return result.toString();
+        if (isVowelsMoreThan(string, PERCENT) && string.length() > 1) {
+            return getMommifiedString(string);
         }
         return string;
+    }
+
+    private String getMommifiedString(String string) {
+        StringBuilder result = new StringBuilder(string);
+        int index = 1;
+        while (index < result.length()) {
+            if (hasContinuousVowelsAt(result, index)) {
+                result.insert(index, "mommy");
+                index += 5;
+                continue;
+            }
+            index++;
+        }
+        return result.toString();
+    }
+
+    private boolean hasContinuousVowelsAt(StringBuilder result, int index) {
+        int previous = index - 1;
+        return vowels.contains(result.charAt(previous)) && vowels.contains(result.charAt(index));
     }
 
     private boolean isVowelsMoreThan(String string, double percent) {
