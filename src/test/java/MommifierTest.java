@@ -11,4 +11,13 @@ public class MommifierTest {
         });
         assertEquals(exception.getMessage(), "Input should not be null");
     }
+
+    @Test
+    void should_throw_when_given_empty_string() {
+        Mommifier mommifier = new Mommifier();
+        final Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            String actual = mommifier.mommify("");
+        });
+        assertEquals(exception.getMessage(), "Input should not be empty string");
+    }
 }

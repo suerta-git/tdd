@@ -3,6 +3,9 @@ public class Mommifier {
         if (string == null) {
             throw new IllegalArgumentException("Input should not be null");
         }
+        if (string.isEmpty()) {
+            throw new IllegalArgumentException("Input should not be empty string");
+        }
         return null;
     }
 }
