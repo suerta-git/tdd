@@ -27,4 +27,11 @@ public class MommifierTest {
         final String actual = mommifier.mommify("should be itself________");
         assertEquals("should be itself________", actual);
     }
+
+    @Test
+    void should_insert_mommy_between_two_continuous_vowels_when_mommify_given_string_with_vowels_more_than_30_percent() {
+        Mommifier mommifier = new Mommifier();
+        final String actual = mommifier.mommify("should be mommified");
+        assertEquals("shomommyuld be mommifimommyed", actual);
+    }
 }
